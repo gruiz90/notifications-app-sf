@@ -1,0 +1,15 @@
+{
+  "orgName": "gruiz Company",
+  "edition": "Developer",
+  "language": "en",
+  "features": [
+      "Communities" 
+  ],
+  "settings": {
+    "orgPreferenceSettings": {
+      "s1DesktopEnabled": true,
+      "networksEnabled": true,
+	  "s1EncryptedStoragePref2": false
+	}
+  }
+}

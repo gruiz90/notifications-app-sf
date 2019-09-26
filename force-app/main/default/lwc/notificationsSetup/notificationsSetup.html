@@ -1,0 +1,73 @@
+<template>
+    <lightning-card title="LiveChat Notifications Setup" icon-name="utility:notification">
+        <lightning-button
+                label="Save"
+                slot="actions"
+                variant="brand"
+                icon-name="utility:save"
+                icon-position="left"
+                onclick={handleSave}>
+        </lightning-button>
+        <div class="c-container">
+            <lightning-layout multiple-rows="true">
+                <lightning-layout-item padding="around-small" size="12">
+                    <lightning-layout>
+                        <lightning-layout-item padding="around-small" size="3">
+                            <lightning-radio-group
+                                    name="NewMessageRequest"
+                                    label="New chat/messaging request"
+                                    options={options}
+                                    value={valueChatRequest}
+                                    onchange={handleChangeNewChat}>
+                            </lightning-radio-group>
+                        </lightning-layout-item>
+                        <template if:true={chatRequestActive}>
+                            <lightning-layout-item padding="around-small" size="6">
+                                <lightning-input
+                                        name="newChatMessage"
+                                        label="Browser App Notification Message"
+                                        max-length="75"
+                                        value={chatMessage}
+                                        onchange={handleChangeChatMessage}>
+                                </lightning-input>
+                            </lightning-layout-item>
+                            <lightning-layout-item padding="around-small" size="3">
+                                <lightning-radio-group
+                                    name="chatSound"
+                                    label="New Chat Sound"
+                                    options={optionsChatSound}
+                                    value={valueChatSound}
+                                    onchange={handleChangeNewChatSound}>
+                                </lightning-radio-group>
+                            </lightning-layout-item>
+                        </template>
+                    </lightning-layout>
+                </lightning-layout-item>
+                <lightning-layout-item padding="around-small" size="12">
+                    <lightning-layout>
+                        <lightning-layout-item padding="around-small" size="3">
+                            <lightning-radio-group
+                                    name="NewMessage"
+                                    label="New Message"
+                                    options={options}
+                                    value={valueNewMessage}
+                                    onchange={handleChangeNewMessage}>
+                            </lightning-radio-group>
+                        </lightning-layout-item>
+                        <template if:true={newMessageActive}>
+                            <lightning-layout-item padding="around-small" size="9">
+                                <lightning-radio-group
+                                        name="messageSound"
+                                        label="New Message Sound"
+                                        options={optionsMessageSound}
+                                        value={valueMessageSound}
+                                        onchange={handleChangeNewMessageSound}>
+                                </lightning-radio-group>
+                            </lightning-layout-item>
+                        </template>
+                    </lightning-layout>
+                </lightning-layout-item>
+            </lightning-layout>
+        </div>
+    </lightning-card>
+</template>

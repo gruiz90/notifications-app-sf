@@ -1,0 +1,7 @@
+<!--
+ - Created by gruiz on 2019-09-25.
+ -->
+
+<aura:component description="NotificationsSetupWrapper" implements="force:appHostable">
+    <c:notificationsSetup/>
+</aura:component>
