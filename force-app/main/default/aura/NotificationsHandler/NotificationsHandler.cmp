@@ -1,5 +1,6 @@
-<aura:component implements="lightning:backgroundUtilityItem" access="global">
+<aura:component implements="lightning:backgroundUtilityItem" access="global" controller="NotificationsSetup">
 	<aura:attribute name="notifyPermission" type="Boolean" />
+	<aura:attribute name="notificationSettings" type="String" />
 	<aura:handler name="init" value="{!this}" action="{!c.onInit}" />
 	<aura:handler event="lightning:omniChannelWorkAssigned" action="{!c.onOmniNewWork}" />
 	<aura:handler event="lightning:conversationNewMessage" action="{!c.onNewMessage}" />

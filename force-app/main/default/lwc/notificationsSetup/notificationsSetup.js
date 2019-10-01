@@ -19,11 +19,11 @@ export default class NotificationsSetup extends LightningElement {
 	wiredNotificationSettings({ error, data }) {
 		if (data) {
 			console.log(JSON.stringify(data));
-			this.chatRequestActive = data.Chat_Request_Active__c;
-			this.newMessageActive = data.Chat_Message_Notification_Active__c;
-			this.chatSoundActive = data.Chat_Request_Sound_Active__c;
-			this.messageSoundActive = data.Chat_Message_Sound_Active__c;
-			this.chatMessage = data.Chat_Request_Message__c;
+			this.chatRequestActive = data.chatActive;
+			this.newMessageActive = data.messageActive;
+			this.chatSoundActive = data.chatSoundActive;
+			this.messageSoundActive = data.messageSoundActive;
+			this.chatMessage = data.chatMessage;
 
 			this.valueChatRequest = this.chatRequestActive ? '1' : '0';
 			this.valueNewMessage = this.newMessageActive ? '1' : '0';
