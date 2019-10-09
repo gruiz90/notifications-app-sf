@@ -2,33 +2,32 @@
 	setChatNotificationsSettings: function (component) {
 		let action = component.get("c.getChatNotifications");
 
-		action.setCallback(this, function(response){
-			if(component.isValid() && response !== null && response.getState() === 'SUCCESS'){
+		action.setCallback(this, function (response) {
+			if (component.isValid() && response !== null && response.getState() === 'SUCCESS') {
 				//saving custom setting to attribute
 				component.set("v.notificationSettings", response.getReturnValue());
-				console.debug(response.getReturnValue());//Check the output
+				console.debug(response.getReturnValue());
 			}
 		});
 
+		// eslint-disable-next-line no-undef
 		$A.enqueueAction(action);
 	},
 
-	notifyNewWork: function (component) {
+	clearPreviousNotification: function (prevNotification, timeout) {
 		// First close the last chat request browser notification
-		const oldNotification = component.get("v.chatRequestNotification");
-		if (oldNotification) {
-			oldNotification.close();
+		if (prevNotification) {
+			prevNotification.close();
 		}
 		// Clean the timeout as well if exists
-		let timeoutChatRequest = component.get("v.timeoutChatRequest");
-		if (timeoutChatRequest) {
-			clearTimeout(timeoutChatRequest);
+		if (timeout) {
+			clearTimeout(timeout);
 		}
+	},
 
-		// Then create the chat request browser notification
-		const message = component.get('v.notificationSettings').chatMessage;
+	createNotification: function (message, body) {
 		let notification = new Notification(message, {
-			body: "Click here to return to the Service Console",
+			body: body,
 			icon: "/logos/Salesforce/LightningService/logo.png",
 			requireInteraction: true,
 		});
@@ -37,62 +36,69 @@
 			window.focus();
 			this.close();
 		};
+		return notification;
+	},
+
+	notifyNewWork: function (component) {
+		this.clearPreviousNotification(
+			component.get("v.chatRequestNotification"),
+			component.get("v.timeoutChatRequest")
+		);
+
+		let notification = this.createNotification(
+			component.get('v.notificationSettings').chatMessage,
+			"Click here to return to the Service Console"
+		);
 		//saving notification in component attribute
 		component.set("v.chatRequestNotification", notification);
 
 		// 1 minute timeout to close the browser notification
-		timeoutChatRequest = setTimeout(notification.close.bind(notification), 60000);
+		const timeoutChatRequest = setTimeout(notification.close.bind(notification), 60000);
 		component.set("v.timeoutChatRequest", timeoutChatRequest);
 	},
 
-	notifyNewMessage: function (content, user, component) {
-		// First close the last chat request browser notification
-		const oldNotification = component.get("v.messageNotification");
-		if (oldNotification) {
-			oldNotification.close();
-		}
-		// Clean the timeout as well if exists
-		let timeoutMessage = component.get("v.timeoutMessage");
-		if (timeoutMessage) {
-			clearTimeout(timeoutMessage);
-		}
+	notifyNewMessage: function (component, user, content) {
+		this.clearPreviousNotification(
+			component.get("v.messageNotification"),
+			component.get("v.timeoutMessage")
+		);
 
-		// Then create the new message browser notification
-		let notification = new Notification(`Message from ${user}`, {
-			body: content,
-			icon: "/logos/Salesforce/LightningService/logo.png",
-			requireInteraction: true,
-		});
-		// Add an onclick listener for closing it
-		notification.onclick = function () {
-			window.focus();
-			this.close();
-		};
-		//saving new message notification in component attribute
+		let notification = this.createNotification(
+			`Message from ${user}`,
+			content
+		);
+		//saving notification in component attribute
 		component.set("v.messageNotification", notification);
 
 		// Play alert sound if the option is on
-		if (component.get('v.notificationSettings').messageSoundActive) {
-			const soundURL = component.get('v.notificationSettings').customSoundURL;
+		this.playAlertSound(
+			component.get('v.notificationSettings').messageSoundActive,
+			component.get('v.notificationSettings').customSoundURL
+		);
+
+		// 1 minute timeout to close the browser notification
+		const timeoutMessage = setTimeout(notification.close.bind(notification), 60000);
+		component.set("v.timeoutMessage", timeoutMessage);
+	},
+
+	playAlertSound: function (active, soundURL) {
+		if (active) {
 			if (soundURL && soundURL.length > 0) {
 				console.log('Playing sound file from custom sound URL field...');
 				this.playSound(soundURL);
 			} else {
 				console.log('Play default sound from static resource here...');
-				this.playSound($A.get('$Resource.Message_Alert_Sound'));
+				// eslint-disable-next-line no-undef
+				this.playSound($A.get('$Resource.Default_Alert_Sound'));
 			}
 		}
-
-		// 1 minute timeout to close the browser notification
-		timeoutMessage = setTimeout(notification.close.bind(notification), 60000);
-		component.set("v.timeoutMessage", timeoutMessage);
 	},
 
 	playSound: function (soundFile) {
 		const audio = new Audio(soundFile);
-		audio.play().then( result => {
+		audio.play().then(() => {
 			console.log('Playing notification alert sound!');
-		}).catch( error => {
+		}).catch(error => {
 			console.log('Error trying to play notification alert sound', error);
 		});
 	}

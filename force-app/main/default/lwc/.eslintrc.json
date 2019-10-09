@@ -1,3 +1,16 @@
 {
-  "extends": ["@salesforce/eslint-config-lwc/recommended"]
+  "parser": "babel-eslint",
+  "plugins": [
+    "@lwc/eslint-plugin-lwc"
+  ],
+  "rules": {
+    "@lwc/lwc/no-deprecated": "error",
+    "@lwc/lwc/valid-api": "error",
+    "@lwc/lwc/valid-track": "error",
+    "@lwc/lwc/valid-wire": "error",
+    "@lwc/lwc/consistent-component-name": "error",
+    "@lwc/lwc/no-dupe-class-members": "error",
+    "@lwc/lwc/no-inner-html": "error",
+    "@lwc/lwc/no-async-operation": "error"
+  }
 }

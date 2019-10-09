@@ -1,123 +1,79 @@
 <template>
     <lightning-card title="LiveChat Notifications Setup" icon-name="utility:notification">
-        <lightning-button
-                icon-name="utility:save"
-                icon-position="left"
-                label="Save"
-                onclick={handleSave}
-                slot="actions"
-                variant="brand">
-        </lightning-button>
-        <div class="c-container">
-            <lightning-layout multiple-rows="true">
-                <lightning-layout-item padding="around-small" size="12">
-                    <lightning-layout>
-                        <lightning-layout-item padding="around-small" size="3">
-                            <lightning-radio-group
-                                    label="New chat/messaging request via Omni Channel"
-                                    name="NewMessageRequest"
-                                    onchange={handleChangeNewChat}
-                                    options={options}
-                                    value={valueChatRequest}>
-                            </lightning-radio-group>
-                        </lightning-layout-item>
-                        <template if:true={chatRequestActive}>
-                            <lightning-layout-item padding="around-small" size="6">
-                                <lightning-input
-                                        field-level-help="Customizable new chat/conversation request message"
-                                        label="Browser notification"
-                                        max-length="128"
-                                        name="newChatMessage"
-                                        onchange={handleChangeChatMessage}
-                                        value={chatMessage}>
-                                </lightning-input>
-                            </lightning-layout-item>
-                        </template>
-                    </lightning-layout>
-                </lightning-layout-item>
-                <lightning-layout-item padding="around-small" size="12">
-                    <lightning-layout>
-                        <lightning-layout-item padding="around-small" size="3">
-                            <lightning-radio-group
-                                    label="New Message"
-                                    name="NewMessage"
-                                    onchange={handleChangeNewMessage}
-                                    options={options}
-                                    value={valueNewMessage}>
-                            </lightning-radio-group>
-                        </lightning-layout-item>
-                        <template if:true={newMessageActive}>
+        <template if:true={alreadyHaveNotificationsSettings}>
+            <lightning-button
+                    icon-name="utility:save"
+                    icon-position="left"
+                    label="Save"
+                    onclick={handleSave}
+                    slot="actions"
+                    variant="brand">
+            </lightning-button>
+            <div class="c-container">
+                <lightning-layout multiple-rows="true">
+                    <lightning-layout-item padding="around-small" size="12">
+                        <lightning-layout>
                             <lightning-layout-item padding="around-small" size="3">
                                 <lightning-radio-group
-                                        label="New Message Notification Alert Sound"
-                                        name="messageSound"
-                                        onchange={handleChangeNewMessageSound}
-                                        options={optionsMessageSound}
-                                        value={valueMessageSound}>
+                                        label="New chat/messaging request via Omni Channel"
+                                        name="NewMessageRequest"
+                                        onchange={handleChangeNewChat}
+                                        options={options}
+                                        value={valueChatRequest}>
                                 </lightning-radio-group>
                             </lightning-layout-item>
-                            <template if:true={messageSoundActive}>
-                                <lightning-layout-item padding="around-small" size="6">
+                            <template if:true={chatRequestActive}>
+                                <lightning-layout-item padding="around-small" size="4">
                                     <lightning-input
-                                            field-level-help="This can be a static resource file URL
-                                            or an external link to a valid sound file.
-                                            If left blank then the default sound file from Message_Alert_Sound static resource is played."
-                                            label="Custom Sound URL"
-                                            name="customSoundUrl"
-                                            onchange={handleChangeCustomSoundUrl}
-                                            value={customSoundURL}>
+                                            field-level-help="Customizable new chat/conversation request message"
+                                            label="Browser notification"
+                                            max-length="128"
+                                            name="newChatMessage"
+                                            onchange={handleChangeChatMessage}
+                                            value={chatMessage}>
                                     </lightning-input>
-
-<!--                                    <lightning-layout vertical-align="center">-->
-<!--                                        <lightning-layout-item>-->
-<!--                                            <div class="infoTextHolder">-->
-<!--                                                <lightning-helptext-->
-<!--                                                        content="Customizable alert sound (if no file uploaded-->
-<!--                                                        then it uses the default one from the-->
-<!--                                                        Message_Alert_Sound static resource)">-->
-<!--                                                </lightning-helptext>-->
-<!--                                            </div>-->
-<!--                                        </lightning-layout-item>-->
-<!--                                        <lightning-layout-item>-->
-<!--                                            <lightning-input-->
-<!--                                                    accept={acceptedFormats}-->
-<!--                                                    disabled={disableUploaderBtn}-->
-<!--                                                    label="Sound File"-->
-<!--                                                    name="fileUploaderInput"-->
-<!--                                                    onchange={handleFilesChange}-->
-<!--                                                    type="file">-->
-<!--                                            </lightning-input>-->
-<!--                                        </lightning-layout-item>-->
-<!--                                        <lightning-layout-item padding="horizontal-small">-->
-<!--                                            <div class="slds-m-top_medium">-->
-<!--                                                <div class="spinnerHolder">-->
-<!--                                                    <template if:false={showLoadingSpinner}>-->
-<!--                                                        <template if:true={uploaderError}>-->
-<!--                                                            <div class="slds-text-color_error">-->
-<!--                                                                {uploaderMessage}-->
-<!--                                                            </div>-->
-<!--                                                        </template>-->
-<!--                                                        <template if:false={uploaderError}>-->
-<!--                                                            {fileName}-->
-<!--                                                        </template>-->
-<!--                                                    </template>-->
-<!--                                                    <template if:true={showLoadingSpinner}>-->
-<!--                                                        <lightning-spinner-->
-<!--                                                                alternative-text="Loading File"-->
-<!--                                                                size="medium"-->
-<!--                                                                variant="brand">-->
-<!--                                                        </lightning-spinner>-->
-<!--                                                    </template>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                        </lightning-layout-item>-->
-<!--                                    </lightning-layout>-->
                                 </lightning-layout-item>
                             </template>
-                        </template>
-                    </lightning-layout>
-                </lightning-layout-item>
-            </lightning-layout>
-        </div>
+                        </lightning-layout>
+                    </lightning-layout-item>
+                    <lightning-layout-item padding="around-small" size="12">
+                        <lightning-layout>
+                            <lightning-layout-item padding="around-small" size="3">
+                                <lightning-radio-group
+                                        label="New Message"
+                                        name="NewMessage"
+                                        onchange={handleChangeNewMessage}
+                                        options={options}
+                                        value={valueNewMessage}>
+                                </lightning-radio-group>
+                            </lightning-layout-item>
+                            <template if:true={newMessageActive}>
+                                <lightning-layout-item padding="around-small" size="3">
+                                    <lightning-radio-group
+                                            label="New Message Notification Alert Sound"
+                                            name="messageSound"
+                                            onchange={handleChangeNewMessageSound}
+                                            options={optionsMessageSound}
+                                            value={valueMessageSound}>
+                                    </lightning-radio-group>
+                                </lightning-layout-item>
+                                <template if:true={messageSoundActive}>
+                                    <lightning-layout-item padding="around-small" size="4">
+                                        <lightning-input
+                                                field-level-help="Upload the custom sound file as a static resource
+                                                and insert the URL of the resource here"
+                                                label="Custom Sound URL"
+                                                name="customSoundUrl"
+                                                onchange={handleChangeCustomSoundUrl}
+                                                value={customSoundURL}>
+                                        </lightning-input>
+                                    </lightning-layout-item>
+                                </template>
+                            </template>
+                        </lightning-layout>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </div>
+        </template>
     </lightning-card>
 </template>

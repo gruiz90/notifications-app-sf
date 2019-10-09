@@ -19,6 +19,7 @@
 		if (Notification.permission === "granted") {
 			component.set('v.notifyPermission', true);
 			// Get Chat Notifications custom setting only if permission granted
+			// For now this is only done in the onInit function
 			helper.setChatNotificationsSettings(component);
 		}
 	},
@@ -27,6 +28,7 @@
 		const workItemId = event.getParam('workItemId');
 		const workId = event.getParam('workId');
 		console.log('New omni channel work assigned: ', workItemId, workId);
+
 		if (component.get('v.notificationSettings').chatRequestActive) {
 			console.log('Chat request active so show notification if permission granted -> ');
 			if (component.get('v.notifyPermission') === true && document.visibilityState === "hidden") {
@@ -45,7 +47,7 @@
 		if (component.get('v.notificationSettings').newMessageActive) {
 			console.log('Message active so show notification if permission granted -> ');
 			if (component.get('v.notifyPermission') === true && document.visibilityState === "hidden") {
-				helper.notifyNewMessage(content, name, component);
+				helper.notifyNewMessage(component, name, content);
 			}
 		}
 	}

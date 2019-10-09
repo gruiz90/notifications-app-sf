@@ -1,5 +1,5 @@
-import { LightningElement, track } from 'lwc';
-import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import {LightningElement, track} from 'lwc';
+import {ShowToastEvent} from 'lightning/platformShowToastEvent';
 import getChatNotifications from '@salesforce/apex/NotificationsSetup.getChatNotifications';
 import updateChatNotifications from '@salesforce/apex/NotificationsSetup.updateChatNotifications';
 
@@ -7,20 +7,14 @@ export default class NotificationsSetup extends LightningElement {
 	@track chatRequestActive = false;
 	@track newMessageActive = false;
 	@track messageSoundActive = false;
-	@track chatMessage  = '';
+	@track chatMessage = '';
 	@track customSoundURL = '';
 
 	@track valueChatRequest = '0';
 	@track valueNewMessage = '0';
 	@track valueMessageSound = '0';
 
-	// @track uploaderMessage = '';
-	// @track uploaderError = false;
-	// encodedFileContent = '';
-	// @track showLoadingSpinner = false;
-	// @track disableUploaderBtn = false;
-
-	alreadyHaveNotificationsSettings = false;
+	@track alreadyHaveNotificationsSettings = false;
 	connectedCallback() {
 		if (!this.alreadyHaveNotificationsSettings) {
 			const result = this.getNotificationsSettings();
@@ -58,15 +52,15 @@ export default class NotificationsSetup extends LightningElement {
 
 	get options() {
 		return [
-			{ label: 'On', value: '1' },
-			{ label: 'Off (Use Default experience)', value: '0' },
+			{label: 'On', value: '1'},
+			{label: 'Off (Use Default experience)', value: '0'},
 		];
 	}
 
 	get optionsMessageSound() {
 		return [
-			{ label: 'On', value: '1' },
-			{ label: 'Off', value: '0' },
+			{label: 'On', value: '1'},
+			{label: 'Off', value: '0'},
 		];
 	}
 
@@ -101,7 +95,7 @@ export default class NotificationsSetup extends LightningElement {
 			chatMessage: this.chatMessage,
 			customSoundURL: this.customSoundURL,
 		};
-		this.updateNotificationsSettings(chatOptions)
+		this.updateNotificationsSettings(chatOptions);
 	}
 
 	async updateNotificationsSettings(chatOptions) {
@@ -126,43 +120,4 @@ export default class NotificationsSetup extends LightningElement {
 			);
 		}
 	}
-
-	// get acceptedFormats() {
-	// 	return ['.mp3', '.wav'];
-	// }
-	//
-	// handleFilesChange(event) {
-	// 	const filesUploaded = event.target.files;
-	// 	if (filesUploaded.length > 0) {
-	// 		const file = filesUploaded[0];
-	// 		const fileName = file.name;
-	// 		const allowedFormat = /(\.mp3|\.wav)$/i;
-	// 		if (!allowedFormat.exec(fileName)) {
-	// 			this.uploaderMessage = 'The uploaded file must be on mp3 or wav format!';
-	// 			this.uploaderError = true;
-	// 			this.fileName = '';
-	// 		} else {
-	// 			this.fileName = fileName;
-	// 			this.readFile(file);
-	// 		}
-	// 	}
-	// }
-	//
-	// readFile(file) {
-	// 	this.disableUploaderBtn = true;
-	// 	this.showLoadingSpinner = true;
-	// 	// create a FileReader object
-	// 	let fileReader = new FileReader();
-	// 	// set onload function of FileReader object
-	// 	fileReader.onloadend = (() => {
-	// 		const fileContents = fileReader.result;
-	// 		this.encodedFileContent = window.btoa(fileContents);
-	// 		setTimeout(() => {
-	// 			// TODO: Save the fileContents as an Attachment to the org here
-	// 			this.showLoadingSpinner = false;
-	// 			this.disableUploaderBtn = false;
-	// 		}, 2000);
-	// 	});
-	// 	fileReader.readAsBinaryString(file);
-	// }
 }
