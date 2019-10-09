@@ -29,11 +29,11 @@ public with sharing class NotificationsSetup {
 	}
 
 	public class ChatOptions {
-		@AuraEnabled Boolean chatRequestActive { get; set; }
-		@AuraEnabled Boolean newMessageActive { get; set; }
-		@AuraEnabled Boolean messageSoundActive { get; set; }
-		@AuraEnabled String chatMessage { get; set; }
-		@AuraEnabled String customSoundURL { get; set; }
+		@AuraEnabled public Boolean chatRequestActive { get; set; }
+		@AuraEnabled public Boolean newMessageActive { get; set; }
+		@AuraEnabled public Boolean messageSoundActive { get; set; }
+		@AuraEnabled public String chatMessage { get; set; }
+		@AuraEnabled public String customSoundURL { get; set; }
 
 		public ChatOptions() {
 			this.chatRequestActive = false;
