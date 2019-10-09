@@ -1,0 +1,20 @@
+/**
+ * Created by gruiz on 2019-10-01.
+ */
+
+.spinnerHolder{
+    position: relative;
+    display: inline-block;
+    margin-left: 15px;
+    width: 55px;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.infoTextHolder{
+    position: relative;
+    display: inline-block;
+    margin-top: 1rem;
+    width: 1.5rem;
+    vertical-align: middle;
+}

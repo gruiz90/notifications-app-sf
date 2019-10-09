@@ -3,7 +3,7 @@
 		// Ask for notifications permission if needed
 		component.set('v.notifyPermission', false);
 		if (!("Notification" in window)) {
-			alert("This browser does not support system notifications");
+			console.log("This browser does not support system notifications");
 		} else if (Notification.permission !== 'granted' && Notification.permission !== 'denied') {
 			Notification.requestPermission().then(result => {
 				if (result === 'denied') {
@@ -26,12 +26,11 @@
 	onOmniNewWork: function (component, event, helper) {
 		const workItemId = event.getParam('workItemId');
 		const workId = event.getParam('workId');
-		console.log('New omnichannel work assigned: ', workItemId, workId);
-		if (component.get('v.notificationSettings').chatActive) {
-			console.log('Chat active so show notification if permission granted -> ');
+		console.log('New omni channel work assigned: ', workItemId, workId);
+		if (component.get('v.notificationSettings').chatRequestActive) {
+			console.log('Chat request active so show notification if permission granted -> ');
 			if (component.get('v.notifyPermission') === true && document.visibilityState === "hidden") {
-				helper.notifyNewWork(component.get('v.notificationSettings').chatMessage,
-					component.get('v.notificationSettings').chatSoundActive);
+				helper.notifyNewWork(component);
 			}
 		}
 	},
@@ -43,10 +42,10 @@
 		const type = event.getParam('type');
 		const timestamp = event.getParam('timestamp');
 		console.log('New message: ', recordId, content, name, type, timestamp);
-		if (component.get('v.notificationSettings').messageActive) {
+		if (component.get('v.notificationSettings').newMessageActive) {
 			console.log('Message active so show notification if permission granted -> ');
 			if (component.get('v.notifyPermission') === true && document.visibilityState === "hidden") {
-				helper.notifyNewMessage(content, name, component.get('v.notificationSettings').messageSoundActive);
+				helper.notifyNewMessage(content, name, component);
 			}
 		}
 	}

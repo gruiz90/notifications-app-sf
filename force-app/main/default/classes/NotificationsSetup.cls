@@ -4,13 +4,13 @@
 
 public with sharing class NotificationsSetup {
 
-	@AuraEnabled(Cacheable=true)
+	@AuraEnabled
 	public static ChatOptions getChatNotifications() {
 		Chat_Notifications__c chatNotifications = Chat_Notifications__c.getInstance();
 		if (chatNotifications.Id != null) {
 			return new ChatOptions(chatNotifications.Chat_Request_Active__c,
-					chatNotifications.Chat_Message_Notification_Active__c, chatNotifications.Chat_Request_Sound_Active__c,
-					chatNotifications.Chat_Message_Sound_Active__c, chatNotifications.Chat_Request_Message__c);
+					chatNotifications.Chat_Message_Notification_Active__c, chatNotifications.Chat_Message_Sound_Active__c,
+					chatNotifications.Chat_Request_Message__c, chatNotifications.Custom_Sound_URL__c);
 		} else {
 			return new ChatOptions();
 		}
@@ -20,36 +20,36 @@ public with sharing class NotificationsSetup {
 	public static void updateChatNotifications(String chatOptionsJSON) {
 		ChatOptions chatOptions = (ChatOptions) JSON.deserialize(chatOptionsJSON, ChatOptions.class);
 		Chat_Notifications__c chatNotifications = Chat_Notifications__c.getInstance();
-		chatNotifications.Chat_Request_Active__c = chatOptions.chatActive;
-		chatNotifications.Chat_Message_Notification_Active__c = chatOptions.messageActive;
-		chatNotifications.Chat_Request_Sound_Active__c = chatOptions.chatSoundActive;
+		chatNotifications.Chat_Request_Active__c = chatOptions.chatRequestActive;
+		chatNotifications.Chat_Message_Notification_Active__c = chatOptions.newMessageActive;
 		chatNotifications.Chat_Message_Sound_Active__c = chatOptions.messageSoundActive;
 		chatNotifications.Chat_Request_Message__c = chatOptions.chatMessage;
+		chatNotifications.Custom_Sound_URL__c = chatOptions.customSoundURL;
 		upsert chatNotifications;
 	}
 
 	public class ChatOptions {
-		@AuraEnabled Boolean chatActive { get; set; }
-		@AuraEnabled Boolean messageActive { get; set; }
-		@AuraEnabled Boolean chatSoundActive { get; set; }
+		@AuraEnabled Boolean chatRequestActive { get; set; }
+		@AuraEnabled Boolean newMessageActive { get; set; }
 		@AuraEnabled Boolean messageSoundActive { get; set; }
 		@AuraEnabled String chatMessage { get; set; }
+		@AuraEnabled String customSoundURL { get; set; }
 
 		public ChatOptions() {
-			this.chatActive = false;
-			this.messageActive = false;
-			this.chatSoundActive = false;
+			this.chatRequestActive = false;
+			this.newMessageActive = false;
 			this.messageSoundActive = false;
 			this.chatMessage = 'You have a new conversation request';
+			this.customSoundURL = '';
 		}
 
-		public ChatOptions(Boolean chatActive, Boolean messageActive, Boolean chatSoundActive,
-				Boolean messageSoundActive, String chatMessage) {
-			this.chatActive = chatActive;
-			this.messageActive = messageActive;
-			this.chatSoundActive = chatSoundActive;
+		public ChatOptions(Boolean chatActive, Boolean messageActive, Boolean messageSoundActive,
+				String chatMessage, String customSoundURL) {
+			this.chatRequestActive = chatActive;
+			this.newMessageActive = messageActive;
 			this.messageSoundActive = messageSoundActive;
 			this.chatMessage = chatMessage;
+			this.customSoundURL = customSoundURL;
 		}
 	}
 

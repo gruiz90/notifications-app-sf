@@ -4,7 +4,6 @@
     <columns>SETUP_OWNER_NAME</columns>
     <columns>Chat_Request_Active__c</columns>
     <columns>Chat_Request_Message__c</columns>
-    <columns>Chat_Request_Sound_Active__c</columns>
     <columns>Chat_Message_Notification_Active__c</columns>
     <columns>Chat_Message_Sound_Active__c</columns>
     <filterScope>Everything</filterScope>
