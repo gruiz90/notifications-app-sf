@@ -13,7 +13,6 @@ private class NotificationsSetupTest {
 
 		chatOptions.chatRequestActive = true;
 		chatOptions.newMessageActive = true;
-		chatOptions.messageSoundActive = true;
 		chatOptions.chatMessage = 'New Chat Request';
 		chatOptions.customSoundURL = 'https://test.com/sound.mp3';
 		NotificationsSetup.updateChatNotifications(JSON.serialize(chatOptions));

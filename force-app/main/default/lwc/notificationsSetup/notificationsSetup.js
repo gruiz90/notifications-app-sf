@@ -6,7 +6,6 @@ import updateChatNotifications from '@salesforce/apex/NotificationsSetup.updateC
 export default class NotificationsSetup extends LightningElement {
 	@track chatRequestActive = false;
 	@track newMessageActive = false;
-	@track messageSoundActive = false;
 	@track chatMessage = '';
 	@track customSoundURL = '';
 
@@ -30,13 +29,11 @@ export default class NotificationsSetup extends LightningElement {
 			console.log(JSON.stringify(data));
 			this.chatRequestActive = data.chatRequestActive;
 			this.newMessageActive = data.newMessageActive;
-			this.messageSoundActive = data.messageSoundActive;
 			this.chatMessage = data.chatMessage;
 			this.customSoundURL = data.customSoundURL;
 
 			this.valueChatRequest = this.chatRequestActive ? '1' : '0';
 			this.valueNewMessage = this.newMessageActive ? '1' : '0';
-			this.valueMessageSound = this.messageSoundActive ? '1' : '0';
 			return true;
 		} catch (error) {
 			this.dispatchEvent(
@@ -57,13 +54,6 @@ export default class NotificationsSetup extends LightningElement {
 		];
 	}
 
-	get optionsMessageSound() {
-		return [
-			{label: 'On', value: '1'},
-			{label: 'Off', value: '0'},
-		];
-	}
-
 	handleChangeNewChat(event) {
 		this.chatRequestActive = event.detail.value === '1';
 	}
@@ -74,13 +64,6 @@ export default class NotificationsSetup extends LightningElement {
 
 	handleChangeNewMessage(event) {
 		this.newMessageActive = event.detail.value === '1';
-		if (!this.newMessageActive) {
-			this.messageSoundActive = false;
-		}
-	}
-
-	handleChangeNewMessageSound(event) {
-		this.messageSoundActive = event.detail.value === '1';
 	}
 
 	handleChangeCustomSoundUrl(event) {
@@ -91,7 +74,6 @@ export default class NotificationsSetup extends LightningElement {
 		const chatOptions = {
 			chatRequestActive: this.chatRequestActive,
 			newMessageActive: this.newMessageActive,
-			messageSoundActive: this.messageSoundActive,
 			chatMessage: this.chatMessage,
 			customSoundURL: this.customSoundURL,
 		};

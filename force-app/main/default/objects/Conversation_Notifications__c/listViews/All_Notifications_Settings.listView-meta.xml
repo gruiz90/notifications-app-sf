@@ -5,7 +5,7 @@
     <columns>Chat_Request_Active__c</columns>
     <columns>Chat_Request_Message__c</columns>
     <columns>Chat_Message_Notification_Active__c</columns>
-    <columns>Chat_Message_Sound_Active__c</columns>
+    <columns>Custom_Sound_URL__c</columns>
     <filterScope>Everything</filterScope>
     <label>All Notifications Settings</label>
 </ListView>

@@ -3,6 +3,6 @@
     <customSettingsType>Hierarchy</customSettingsType>
     <description>Contains the settings for the LiveAgent chat notifications.</description>
     <enableFeeds>false</enableFeeds>
-    <label>Chat Notifications</label>
+    <label>Conversation Notifications</label>
     <visibility>Public</visibility>
 </CustomObject>

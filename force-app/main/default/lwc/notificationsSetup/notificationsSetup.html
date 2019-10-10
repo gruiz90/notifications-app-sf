@@ -1,5 +1,5 @@
 <template>
-    <lightning-card title="LiveChat Notifications Setup" icon-name="utility:notification">
+    <lightning-card title="Conversation Notifications Setup" icon-name="utility:notification">
         <template if:true={alreadyHaveNotificationsSettings}>
             <lightning-button
                     icon-name="utility:save"
@@ -15,7 +15,7 @@
                         <lightning-layout>
                             <lightning-layout-item padding="around-small" size="3">
                                 <lightning-radio-group
-                                        label="New chat/messaging request via Omni Channel"
+                                        label="New Chat or Messaging request via Omni Channel"
                                         name="NewMessageRequest"
                                         onchange={handleChangeNewChat}
                                         options={options}
@@ -25,7 +25,7 @@
                             <template if:true={chatRequestActive}>
                                 <lightning-layout-item padding="around-small" size="4">
                                     <lightning-input
-                                            field-level-help="Customizable new chat/conversation request message"
+                                            field-level-help="Customizable new Chat or Messaging request message"
                                             label="Browser notification"
                                             max-length="128"
                                             name="newChatMessage"
@@ -48,27 +48,16 @@
                                 </lightning-radio-group>
                             </lightning-layout-item>
                             <template if:true={newMessageActive}>
-                                <lightning-layout-item padding="around-small" size="3">
-                                    <lightning-radio-group
-                                            label="New Message Notification Alert Sound"
-                                            name="messageSound"
-                                            onchange={handleChangeNewMessageSound}
-                                            options={optionsMessageSound}
-                                            value={valueMessageSound}>
-                                    </lightning-radio-group>
+                                <lightning-layout-item padding="around-small" size="4">
+                                    <lightning-input
+                                            field-level-help="Upload the custom sound file as a static resource
+                                                and insert the URL of the resource here."
+                                            label="Custom Sound URL"
+                                            name="customSoundUrl"
+                                            onchange={handleChangeCustomSoundUrl}
+                                            value={customSoundURL}>
+                                    </lightning-input>
                                 </lightning-layout-item>
-                                <template if:true={messageSoundActive}>
-                                    <lightning-layout-item padding="around-small" size="4">
-                                        <lightning-input
-                                                field-level-help="Upload the custom sound file as a static resource
-                                                and insert the URL of the resource here"
-                                                label="Custom Sound URL"
-                                                name="customSoundUrl"
-                                                onchange={handleChangeCustomSoundUrl}
-                                                value={customSoundURL}>
-                                        </lightning-input>
-                                    </lightning-layout-item>
-                                </template>
                             </template>
                         </lightning-layout>
                     </lightning-layout-item>

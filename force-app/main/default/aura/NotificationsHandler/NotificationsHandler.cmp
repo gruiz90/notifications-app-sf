@@ -1,11 +1,12 @@
 <aura:component implements="lightning:backgroundUtilityItem" access="global" controller="NotificationsSetup">
     <aura:attribute name="notifyPermission" type="Boolean"/>
     <aura:attribute name="notificationSettings" type="String"/>
-    <aura:attribute name="chatRequestNotification" type="String"/>
-    <aura:attribute name="timeoutChatRequest" type="String"/>
-    <aura:attribute name="messageNotification" type="String"/>
-    <aura:attribute name="timeoutMessage" type="String"/>
+    <aura:attribute name="chatRequestsDict" type="String"/>
+    <aura:attribute name="timeoutsChatRequestDict" type="String"/>
+    <aura:attribute name="messagesNotificationDict" type="String"/>
+    <aura:attribute name="timeoutsMessageDict" type="String"/>
     <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
     <aura:handler event="lightning:omniChannelWorkAssigned" action="{!c.onOmniNewWork}"/>
     <aura:handler event="lightning:conversationNewMessage" action="{!c.onNewMessage}"/>
+    <lightning:workspaceAPI aura:id="workspace" />
 </aura:component>
