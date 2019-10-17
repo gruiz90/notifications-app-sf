@@ -11,5 +11,4 @@
     <navType>Standard</navType>
     <tabs>Notifications_Setup</tabs>
     <uiType>Lightning</uiType>
-    <utilityBar>Notifications_AppEx_UtilityBar</utilityBar>
 </CustomApplication>
