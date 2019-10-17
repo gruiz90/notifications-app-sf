@@ -25,8 +25,7 @@ export default class NotificationsSetup extends LightningElement {
 
 	async getNotificationsSettings() {
 		try {
-			const data = await getChatNotifications();
-			console.log(JSON.stringify(data));
+			const data = await getChatNotifications();			
 			this.chatRequestActive = data.chatRequestActive;
 			this.newMessageActive = data.newMessageActive;
 			this.chatMessage = data.chatMessage;

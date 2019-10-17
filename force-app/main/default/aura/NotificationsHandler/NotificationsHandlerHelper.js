@@ -5,8 +5,7 @@
 		action.setCallback(this, function (response) {
 			if (component.isValid() && response !== null && response.getState() === 'SUCCESS') {
 				//saving custom setting to attribute
-				component.set('v.notificationSettings', response.getReturnValue());
-				console.debug(response.getReturnValue());
+				component.set('v.notificationSettings', response.getReturnValue());				
 
 				// Initialize dictionaries
 				component.set('v.chatRequestsDict', {});
