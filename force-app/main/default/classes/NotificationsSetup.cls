@@ -8,10 +8,12 @@ public with sharing class NotificationsSetup {
 	public static ChatOptions getChatNotifications() {
 		Conversation_Notifications__c chatNotifications =
 				Conversation_Notifications__c.getInstance(UserInfo.getProfileId());
-		if (chatNotifications.Id != null) {
+		if (chatNotifications.Id != null) {	
+            String chatMessage = String.isBlank(chatNotifications.Chat_Request_Message__c) ? 
+				'You have a new conversation request' : chatNotifications.Chat_Request_Message__c;
 			return new ChatOptions(chatNotifications.Chat_Request_Active__c,
 					chatNotifications.Chat_Message_Notification_Active__c,
-					chatNotifications.Chat_Request_Message__c, chatNotifications.Custom_Sound_URL__c);
+					chatMessage, chatNotifications.Custom_Sound_URL__c);
 		} else {
 				return new ChatOptions();
 		}
